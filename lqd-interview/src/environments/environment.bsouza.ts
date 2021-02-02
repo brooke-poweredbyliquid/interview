@@ -1,4 +1,4 @@
 export const environment: { [key: string]: string | boolean } = {
-    production: true,
-    name: 'prod',
+    production: false,
+    name: 'bsouza',
 }
