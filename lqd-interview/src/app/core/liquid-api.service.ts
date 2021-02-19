@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map, retry } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 import { CustomerSearch } from '../models/customer-search.model';
 import { Address as AddressResponse } from '../models/responses/address.model';
@@ -24,7 +24,12 @@ export class LiquidApiService {
     return this.http.post(
       `${this.API_BASE}/searches`,
       this.factory.createSearchCustomer(customerSearch))
-        .pipe(map((x: CustomerResponse) => this.factory.createCustomer(x)));
+        .pipe(
+          map((x: CustomerResponse) => this.factory.createCustomer(x)),
+          catchError((err) => {
+            this.handleError(err);
+            throw err;
+          }));
   }
 
   getAddresses(addressSearch: AddressSearch): Observable<Address[]> {
@@ -32,6 +37,12 @@ export class LiquidApiService {
         .pipe(map((x: AddressResponse[]) => {
           return x.map(y => this.factory.createAddress(y));
         }));
+  }
+
+  private handleError(err: any): void {
+    if (err.status === 500) {
+      // alert(err.message);
+    }
   }
 
 }
