@@ -18,6 +18,7 @@ export class CustomerFactory {
       id: customer.id,
       fullName: `${customer.firstName} ${customer.lastName}`,
       emailAddress: customer.emailAddress,
+      address: this.createAddress(customer.address),
     };
   }
 
