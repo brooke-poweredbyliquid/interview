@@ -25,8 +25,14 @@
   <div class="jumbotron" *ngIf="customer">
     <h1 class="display-4">{{customer.fullName}}</h1>
     <p class="lead">Email address: {{customer.emailAddress}}</p>
-    <!-- <hr class="my-4">
-    <p>TBD</p> -->
+    <hr class="my-4">
+    <p>
+      {{customer.address.description}}
+      <br />
+      {{customer.address.line1}}
+      <br />
+      {{customer.address.line2}}
+    </p>
   </div>
 
   <div class="jumbotron" *ngIf="!customer && searchInvoked">
