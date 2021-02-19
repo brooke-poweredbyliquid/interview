@@ -29,4 +29,9 @@ export class CustomerFactory {
       line2: address.line2,
     };
   }
+
+  createSearchCustomer(customerSearch: CustomerSearch): SearchCustomer {
+    const [firstName, lastName] = customerSearch.fullName.split(' ');
+    return { firstName, lastName };
+  }
 }
